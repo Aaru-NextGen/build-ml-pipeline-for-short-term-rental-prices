@@ -6,11 +6,6 @@ import argparse
 import logging
 import os
 
-from pip._internal.operations import freeze
-pkgs = freeze.freeze()
-for pkg in pkgs:
-    print(pkg)
-
 import wandb
 from wandb_utils.log_artifact import log_artifact
 
