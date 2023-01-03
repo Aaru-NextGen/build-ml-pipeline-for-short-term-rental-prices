@@ -1,0 +1,12 @@
+python: "3.8.10"
+# Dependencies required to build packages. This field is optional.
+build_dependencies:
+  - pip
+  - setuptools
+  - wheel
+dependencies:
+  - wandb
+  - mlflow
+  - scikit-learn
+  - requests
+  - git+https://github.com/Aaru-NextGen/build-ml-pipeline-for-short-term-rental-prices#egg=wandbutils&subdirectory=components
