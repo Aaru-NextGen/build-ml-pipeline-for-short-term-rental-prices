@@ -7,7 +7,4 @@ dependencies:
   - mlflow
   - requests
   - wandb
-<<<<<<< HEAD
-  - protoc=3.20
-=======
->>>>>>> e7beb50 (test run)
+  - protoc==3.20
