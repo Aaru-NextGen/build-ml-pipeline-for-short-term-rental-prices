@@ -7,4 +7,7 @@ build_dependencies:
 dependencies:
   - wandb
   - mlflow
-  - requests
+  - pandas
+  - mlflow
+  - scikit-learn
+  - git+https://github.com/Aaru-NextGen/build-ml-pipeline-for-short-term-rental-prices#egg=wandbutils&subdirectory=components
