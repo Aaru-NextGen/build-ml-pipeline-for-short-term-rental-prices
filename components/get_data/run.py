@@ -6,8 +6,12 @@ import argparse
 import logging
 import os
 
-import wandb
+from pip._internal.operations import freeze
+pkgs = freeze.freeze()
+for pkg in pkgs:
+    print(pkg)
 
+import wandb
 from wandb_utils.log_artifact import log_artifact
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
