@@ -7,3 +7,4 @@ dependencies:
   - wandb
   - mlflow
   - requests
+  - wandb_utils
