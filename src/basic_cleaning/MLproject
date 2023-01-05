@@ -1,5 +1,5 @@
 name: basic_cleaning
-conda_env: conda.yml
+python_env: python_env.yaml
 
 entry_points:
   main:
@@ -10,7 +10,7 @@ entry_points:
         type: string
 
       output_artifact:
-        description: Cleaned csv to save
+        description: Cleaned csv to save to wandb
         type: string
 
       output_type:
@@ -28,7 +28,6 @@ entry_points:
       max_price:
         description: Maximum price boundarie for outlier removal
         type: string
-
 
     command: >-
         python run.py  --input_artifact {input_artifact}  --output_artifact {output_artifact}  --output_type {output_type}  --output_description {output_description}  --min_price {min_price}  --max_price {max_price} 

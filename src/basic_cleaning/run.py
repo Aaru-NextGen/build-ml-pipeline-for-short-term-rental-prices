@@ -23,12 +23,13 @@ def go(args):
     artifact_local_path = run.use_artifact(args.input_artifact).file()
 
     dataframe = pd.read_csv(artifact_local_path, index_col="id")
+
     min_price = args.min_price
     max_price = args.max_price
     idx = dataframe['price'].between(min_price, max_price)
     dataframe = dataframe[idx].copy()
-    logger.info("Dataset price outliers removal outside range: %s-%s",
-                 args.min_price, args.max_price)
+    logger.info("Dataset price outliers removal outside range: %s-%s", min_price, max_price)
+
     dataframe['last_review'] = pd.to_datetime(dataframe['last_review'])
     logger.info("Dataset last_review data type fix")
 
@@ -54,7 +55,7 @@ def go(args):
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="A very basic data cleaning")
+    parser = argparse.ArgumentParser(description="standard cleaning of data")
 
     parser.add_argument(
         "--tmp_directory",
@@ -105,6 +106,4 @@ if __name__ == "__main__":
         required=True
     )
 
-    main_args = parser.parse_args()
-
-    go(main_args)
+    go(parse_args.parse_args())
