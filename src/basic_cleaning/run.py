@@ -106,4 +106,4 @@ if __name__ == "__main__":
         required=True
     )
 
-    go(parse_args.parse_args())
+    go(parser.parse_args())
