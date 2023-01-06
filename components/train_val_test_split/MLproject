@@ -1,5 +1,5 @@
-name: download_file
-python_env: python_env.yml
+name: train_test_split 
+python_env: python_env.yaml
 
 entry_points:
   main:

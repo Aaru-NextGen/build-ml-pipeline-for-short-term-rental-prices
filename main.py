@@ -81,10 +81,21 @@ def go(config: DictConfig):
             )
 
         if "data_split" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            pass
+
+            modeling = config['modeling']
+            _ = mlflow.run(
+                os.path.join(
+                    hydra.utils.get_original_cwd(),
+                    "components", "train_val_test_split"
+                ),
+                "main",
+                parameters={
+                    "input": "clean_sample.csv:latest",
+                    "test_size": modeling['test_size'],
+                    "random_seed": modeling['random_seed'],
+                    "stratify_by": modeling['stratify_by'],
+                }
+            )
 
         if "train_random_forest" in active_steps:
 
