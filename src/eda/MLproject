@@ -3,4 +3,4 @@ python_env: python_env.yaml
 
 entry_points:
   main:
-    command: jupyter notebook
+    command: jupyter notebook --allow-root
