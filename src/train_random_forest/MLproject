@@ -1,5 +1,5 @@
-name: download_file
-conda_env: conda.yml
+name: train_random_forest
+python_env: python_env.yaml
 
 entry_points:
   main:
