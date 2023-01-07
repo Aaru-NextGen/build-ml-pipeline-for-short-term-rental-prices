@@ -1,9 +1,11 @@
+"""
+    this function is main for the flow of mlflow steps
+"""
+import os
 import json
+import tempfile
 
 import mlflow
-import tempfile
-import os
-import wandb
 import hydra
 from omegaconf import DictConfig
 
@@ -13,7 +15,6 @@ _steps = [
     "data_check",
     "data_split",
     "train_random_forest",
-    # NOTE: We do not include this in the steps so it is not run by mistake.
     # You first need to promote a model export to "prod" before you can run this,
     # then you need to run this step explicitly
     #    "test_regression_model"
@@ -22,7 +23,7 @@ _steps = [
 
 # This automatically reads in the configuration
 @hydra.main(config_name="config", config_path=".")
-def go(config: DictConfig):
+def run(config: DictConfig):
 
     # Setup the wandb experiment. All runs will be grouped under this name
     os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
@@ -95,11 +96,10 @@ def go(config: DictConfig):
 
         if "train_random_forest" in active_steps:
 
-            # NOTE: we need to serialize the random forest configuration into JSON
-            rf_config = os.path.abspath("rf_config.json")
-            with open(rf_config, "w+") as fp:
+            random_forest_config = os.path.abspath("rf_config.json")
+            with open(random_forest_config, "w+", encoding='UTF-8') as filep:
                 json.dump(
-                    dict(config["modeling"]["random_forest"].items()), fp
+                    dict(config["modeling"]["random_forest"].items()), filep
                 )  # DO NOT TOUCH
 
             modeling = config["modeling"]
@@ -113,7 +113,7 @@ def go(config: DictConfig):
                     "val_size": modeling["val_size"],
                     "random_seed": modeling["random_seed"],
                     "stratify_by": modeling["stratify_by"],
-                    "rf_config": rf_config,
+                    "rf_config": random_forest_config,
                     "max_tfidf_features": modeling["max_tfidf_features"],
                     "output_artifact": "random_forest_export",
                 },
@@ -136,4 +136,4 @@ def go(config: DictConfig):
 
 
 if __name__ == "__main__":
-    go()
+    run()
